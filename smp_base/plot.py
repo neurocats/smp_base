@@ -31,20 +31,20 @@ import colorcet as cc
 
 import numpy as np
 
-from plot_utils import put_legend_out_right
-
 try:
-    from pyunicorn.timeseries import RecurrencePlot
-    HAVE_PYUNICORN = True
-except ImportError, e:
-    print "Couldn't import RecurrencePlot from pyunicorn.timeseries, make sure pyunicorn is installed", e
+    #from pyunicorn.timeseries import RecurrencePlot
+    HAVE_PYUNICORN = not True
+    pass
+except ImportError as e:
+    print("Couldn't import RecurrencePlot from pyunicorn.timeseries, "
+          "make sure pyunicorn is installed", e)
     HAVE_PYUNICORN = False
 
 try:
     import seaborn as sns
     HAVE_SEABORN = True
-except ImportError, e:
-    print "Couldn't import seaborn as sns, make sure seaborn is installed", e
+except ImportError as e:
+    print("Couldn't import seaborn as sns, make sure seaborn is installed", e)
     HAVE_SEABORN = False
 
 import pandas as pd
@@ -964,7 +964,7 @@ def plot_scattermatrix(df, **kwargs):
     plt.ioff()
     # df = pd.DataFrame(scatter_data_raw, columns=["x_%d" % i for i in range(scatter_data_raw.shape[1])])
     sm = scatter_matrix(df, ax = kwargs['ax'], alpha=0.2, figsize=(10, 10), diagonal='hist')
-    print type(sm), sm.shape, sm[0,0]
+    print(type(sm), sm.shape, sm[0,0])
     # fig = sm[0,0].get_figure()
     # if SAVEPLOTS:
     # fig.savefig("fig_%03d_scattermatrix.pdf" % (fig.number), dpi=300)
@@ -1287,8 +1287,8 @@ def custom_colorbar():
         cb1.set_label('Some Units')
         ax_cb.set_aspect(9.0/1.0)
 
-        print ax_im.get_position(), ax_im.get_aspect()
-        print ax_cb.get_position(), ax_cb.get_aspect()
+        print(ax_im.get_position(), ax_im.get_aspect())
+        print(ax_cb.get_position(), ax_cb.get_aspect())
             
         # cbar = plt.colorbar(mappable = img, orientation = "vertical", cax = ax_cb)
         w_im, h_im = get_ax_size(fig, ax_im)
@@ -1327,8 +1327,8 @@ def custom_colorbar():
         cb1.set_label('Some Units')
         # ax_cb.set_aspect(9.0/1.0)
 
-        print ax_im.get_position(), ax_im.get_aspect()
-        print ax_cb.get_position(), ax_cb.get_aspect()
+        print(ax_im.get_position(), ax_im.get_aspect())
+        print(ax_cb.get_position(), ax_cb.get_aspect())
             
         w_im, h_im = get_ax_size(fig, ax_im)
         w_cb, h_cb = get_ax_size(fig, ax_cb)
@@ -1430,7 +1430,7 @@ plotfuncs = {
     'hist2d': plt.hist2d,
     'histogram': histogram,
     'histogramnd': histogramnd,
-    'kdeplot': sns.kdeplot,
+#    'kdeplot': sns.kdeplot,
     'partial': partial,
     'plot_img': plot_img,
     'plot_scattermatrix': plot_scattermatrix,
@@ -1459,5 +1459,5 @@ if __name__ == "__main__":
     elif args.mode == "plot_colors":
         test_plot_colors()
     else:
-        print "Unknown mode %s, exiting" % (args.mode)
+        print("Unknown mode %s, exiting" % (args.mode))
         sys.exit(1)
